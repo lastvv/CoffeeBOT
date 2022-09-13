@@ -26,7 +26,7 @@ async def answer_help_command(call: types.CallbackQuery):
                              message_id=call.message.message_id)
 
 
-@dp.message_handler(commands=['item'])
+@dp.message_handler(commands=['marki'])
 async def answer_item_command(message: types.Message):
     status, item_info = data_manager.get_item(0)
     item_text = f'Название марки кофе {item_info["name"]}:' \
@@ -41,7 +41,7 @@ async def see_new_item(call: types.CallbackQuery):
     id = call.data.split(':')[-1]
     status, item_info = data_manager.get_item(int(id))
     item_text = f'Название марки кофе {item_info["name"]}:' \
-                f'\nсредняя цена: {item_info["count"]}' \
+                f'\nсредняя цена за кг в зёрнах: {item_info["count"]}' \
                 f'\nОписание: {item_info["description"]}'
     await bot.edit_message_text(text=item_text,
                                 chat_id=call.message.chat.id,
@@ -52,12 +52,12 @@ async def see_new_item(call: types.CallbackQuery):
 
 @dp.message_handler(commands=['history'])
 async def answer_item_command(message: types.Message):
-    await message.answer(text='Давай кое-что расскажу:',
+    await message.answer(text='Давай кое-что расскажу про кофе:',
                             reply_markup=info_default_keyboard)
 
 
 
-@dp.message_handler(text=['/История происхождения самого кофе'])
+@dp.message_handler(text=['[.История происхождения самого кофе.]'])
 async def answer_item_command(message: types.Message):
         await message.answer(text='Родина кофе — Эфиопия.'
                                   f'\n Итак, история кофе восходит к Абиссинии 10-го века,'
@@ -68,14 +68,59 @@ async def answer_item_command(message: types.Message):
                                   f'\n и экономическим продуктом арабской культуры.',
                             reply_markup=info_default_keyboard)
 
-@dp.message_handler(text=['/Что такое капучино?'])
+@dp.message_handler(text=['[Что такое капучино?]'])
 async def answer_item_command(message: types.Message):
         await message.answer(text='Капучи́но — кофейный напиток итальянской кухни'
                                   f'\n на основе эспрессо с добавлением в него '
                                   f'\n подогретого вспененного молока.',
                             reply_markup = info_default_keyboard)
 
-@dp.message_handler(text=['/Что такое раф?'])
+@dp.message_handler(text=['[История происхождения латте]'])
+async def answer_item_command(message: types.Message):
+        await message.answer(text='Латте, как ни странно, изобрели итальянские домохозяйки.'
+                                  ' Когда-то семья итальянцев в полном составе садилась за'
+                                  ' стол и начинала завтракать. Взрослые пили натуральный черный кофе,'
+                                  ' а чтобы дети чувствовали себя наравне со взрослыми, им в напиток наливали'
+                                  ' горячее молоко, тем самым понизив концентрацию кофеина. Детский кофе'
+                                  ' получался немного запятнанным, поэтому его назвали «запятнанное молоко», '
+                                  ' что на итальянском звучит как «латте».',
+                            reply_markup = info_default_keyboard)
+
+
+
+
+@dp.message_handler(text=['[История происхождения капучино]'])
+async def answer_item_command(message: types.Message):
+        await message.answer(text='Название этого напитка связывают различными'
+                                  ' путями с монахами-капуцинами.'
+                                  'По одной из версий служители церкви любили насладиться '
+                                  'кофейным вкусом и ароматом. Однако употребление кофе не '
+                                  'приветствовалось среди религиозных представителей, так как'
+                                  'он считался напитком дьявола. И чтобы не отказываться от '
+                                  'удовольствия, монахи придумали смешивать черный кофе с молоком',
+                            reply_markup = info_default_keyboard)
+
+@dp.message_handler(text=['[История происхождения эспрессо]'])
+async def answer_item_command(message: types.Message):
+        await message.answer(text='В Италии очень любят и ценят крепкий чёрный кофе,'
+                                  ' приготовленный из хороших зёрен. До начала 20 века'
+                                  ' готовили любимый бодрящий напиток только в турках, '
+                                  'что не всегда было практично, ведь приходилось ждать '
+                                  'пока он закипит. А представьте, если вы торопитесь и '
+                                  'забежали в кофейню за чашечкой крепкого кофе, то всё '
+                                  'равно придётся ждать, пока вам его приготовят и сварят. '
+                                  'Это подтолкнуло одного миланского инженера-изобретателя'
+                                  ' Луиджи Беццера к созданию аппарата, который будет сам '
+                                  'готовить кофе. В 1901 году он представил свою первую кофемашину.'
+                                  ' Практичность, удобство и скорость приготовления, были оценены '
+                                  'по достоинству. Почти сразу же лицензия на это изобретение была'
+                                  ' куплена предпринимателем Дезидерио Павони. После чего он запустил'
+                                  ' производство и стал выпускать кофемашину Pavoni, которая появилась'
+                                  ' в продаже в 1905 году.',
+                            reply_markup = info_default_keyboard)
+
+
+@dp.message_handler(text=['[Что такое раф?]'])
 async def answer_item_command(message: types.Message):
         await message.answer(text='Раф кофе – это взбитая в капучинаторе смесь из '
                                   'чёрного кофе и сливок, приправленная ванильным сахаром.'
@@ -85,17 +130,35 @@ async def answer_item_command(message: types.Message):
                                   'однородную гладкую пену.',
                             reply_markup = info_default_keyboard)
 
-@dp.message_handler(text=['/Что такое латте?'])
+@dp.message_handler(text=['[История происхождения раф]'])
+async def answer_item_command(message: types.Message):
+        await message.answer(text='1996-7 год. Маленький кофейный магазин '
+                                  'рядом с метро Кузнецкий мост (Кофе Бин). '
+                                  'Три десятка сортов кофе в зерне, кофеварка '
+                                  'эспрессо. В общем, культурный шок для того времени.'
+                                  'Что такое капучино, в Москве узнают года через четыре'
+                                  '. Работали по трое, один старший – открыть\закрыть магазин, '
+                                  'касса и пр. Всё остальное – вместе.Было очень интересно, '
+                                  'много нового, и многое зависело от нас. Постоянные гости со'
+                                  ' своими привычками и пожеланиями.Один из них (Рафаэль или Раф)'
+                                  ' наш кофе не пил, а мы так гордились своими творениями. Специально '
+                                  'для него стали взбивать вместе кофе +сливки 11%+ванильный сахар. Его'
+                                  ' многочисленные друзья начали просить “кофе как Рафу”, первое время '
+                                  'так и называли “как Рафу”. Затем упростили до “Раф кофе”'
+                                  'Сейчас этот рецепт известен по всей стране, правда,к сожалению '
+                                  'иногда меняют оригинальное название.',
+                            reply_markup = info_default_keyboard)
+
+@dp.message_handler(text=['[Что такое латте?]'])
 async def answer_item_command(message: types.Message):
         await message.answer(text='Ла́тте — кофейный напиток родом из Италии,'
-                                  f'\n состоящий из молока и кофе эспрессо'
-                                  f'\n Кофе латте — это слоистый коктейль, который состоит из горячего молока'
-                                  f'\n готового эспрессо и густой, душистой пены. '
-                                  f'\n Это настоящее итальянское изобретение,'
-                                  f'\n которое, кстати, переводится как «запятнанное молоко».',
+                                  ' состоящий из молока и кофе эспрессо Кофе латте — это слоистый коктейль,'
+                                  ' который состоит из горячего молока готового эспрессо и густой, душистой'
+                                  ' пены.Это настоящее итальянское изобретение,которое, кстати, переводится'
+                                  ' как «запятнанное молоко».',
                              reply_markup=info_default_keyboard)
 
-@dp.message_handler(text=['/Что такое эспрессо?'])
+@dp.message_handler(text=['[Что такое эспрессо?]'])
 async def answer_item_command(message: types.Message):
         await message.answer(text='Если быть кратким и не вдаваться в подробности,'
                                   f'\n то эспрессо это метод при котором через 8-20г молотого '
@@ -124,12 +187,17 @@ async def answer_start_command(message: types.Message):
     await message.answer(text='если что, тыкай ниже',
                          reply_markup=start_inline_keyboard)
 
+@dp.message_handler(text=['Показать'])
+async def answer_start_command(message: types.Message):
+    await message.answer(text='Показать',
+                         reply_markup=start_inline_keyboard)
+
 
 @dp.message_handler(content_types=['contact'])
 async def answer_item_command(message: types.Message):
     print(message)
     if message.from_user.id == message.contact.user_id:
-        await message.answer(text='Это твой контакт')
+        await message.answer(text='Мы вам перезвоним')
     else:
         await message.answer(text='А это кто?')
 
