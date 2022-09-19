@@ -4,15 +4,14 @@ commands_default_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='/start'),
-            KeyboardButton(text='/marki')
         ],
         [
+            KeyboardButton(text='/marki'),
             KeyboardButton(text='/history'),
-            KeyboardButton(text='/add')
+
         ],
         [
-            KeyboardButton(text='Поделиться контактом',
-                           request_contact=True)
+            KeyboardButton(text='/add'),
         ],
         [
             KeyboardButton(text='Скрыть клавиатуру')
@@ -25,7 +24,7 @@ commands_default_keyboard = ReplyKeyboardMarkup(
 see_commands_default_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text='Показать')
+            KeyboardButton(text='Показать главное меню')
         ]
     ],
     resize_keyboard=True
